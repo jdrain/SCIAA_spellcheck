@@ -110,10 +110,10 @@ def correctLine(line):
     i = 0
     while i<len(line):
         if isJunkString(line[i]):
-            i=i+1
+            i+=1
         elif isNum(line[i]):
             newLine.append(line[i])
-            i=i+1
+            i+=1
         elif hasInternalJunk(line[i]):
             #try to correct the word as if it has special chars first
             c=correctChars(line[i])
@@ -123,7 +123,7 @@ def correctLine(line):
                 processed = processInternalJunk(line[i])
                 for j in processed:
                     newLine.append(correct(j))
-            i=i+1
+            i+=1
         else:
             c=correct(line[i])
             newLine.append(c)
@@ -165,16 +165,6 @@ def diffCount(fileOne, fileTwo):
             if fileOne[i] != fileTwo[i]:
                 diffCount += 1
     return "Differences between the two files: " + str(diffCount)
-
-
-
-
-"""
-function: recursive concatenate and spellcheck
-"""
-
-
-
 """
 function: remove special chars
 """
