@@ -11,7 +11,7 @@ for i in range(0, len(f)):
 #correct the file
 cf = spellcheck.correctFile(f)
 
-print("\ncorrected file:\n")
+print("\nfile corrected with technique one:\n")
 for i in range(0, len(cf)):
     print(cf[i])
 

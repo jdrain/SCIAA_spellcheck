@@ -16,8 +16,8 @@ def train(features):
 NWORDS = train(words(file('textFiles/Big.txt').read()))
 alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
 numbers = '0123456789'
-alphaNumeric = '0123456789!@#$%^&*()_-+=?'
-chars=['/',':','.']
+specialChars = '!@#$%^&*()_-+=?'
+chars=['/',':','.',',',';']
 
 def edits1(word):
     s = [(word[:i], word[i:]) for i in range(len(word) + 1)]
@@ -42,10 +42,8 @@ def correct(word):
 MY OWN CODE BELOW THIS LINE
 
 TODO:
-    -Figure out a way to deal with words with internal junk chars; ex
-    feet7east
-    -Write code to make sure simple numbers don't get processed into
-    something else
+    -Work on a function to try and concatenate adjacent words or split
+    over spaces
 """
 
 """
@@ -70,6 +68,41 @@ def correctFile(fileList):
         ls1.append(correctLine(i))
     return ls1
 """
+function: correct the file with a different technique
+"""
+def correctFileTwo(fileList):
+    ls=[]
+    for i in fileList:
+        ls.append(correctLineTwo(i))
+    return ls
+"""
+function: correct a line with another technique
+"""
+def correctLineTwo(line):
+    newLine= []
+    i = 0
+    line=removeSpecialChars(line)
+    while i<len(line):
+        if isJunkString(line[i]):
+            i+=1
+        elif isNum(line[i]):
+            newLine.append(line[i])
+            i+=1
+        elif hasInternalJunk(line[i]):
+            c=correctChars(line[i])
+            if c!= line[i]:
+                newLine.append(c)
+            else:
+                processed=processInternalJunk(line[i])
+                for j in processed:
+                    newLine.append(correct(j))
+            i+=1
+        else:
+            c=correct(line[i])
+            newLine.append(c)
+            i+=1
+    return newLine
+"""
 function: correct a whole line
 """
 def correctLine(line):
@@ -83,7 +116,7 @@ def correctLine(line):
             i=i+1
         elif hasInternalJunk(line[i]):
             #try to correct the word as if it has special chars first
-            c=correctSpecialChars(line[i])
+            c=correctChars(line[i])
             if c != line[i]:
                 newLine.append(c)
             else:
@@ -96,12 +129,11 @@ def correctLine(line):
             newLine.append(c)
             i=i+1
     return newLine
-
 """
 function: helper method to deal with special characters
 input: string
 """
-def correctSpecialChars(word):
+def correctChars(word):
     for i in chars:
         s = word.split(i)
         if len(s) != 1:
@@ -118,7 +150,7 @@ def processInternalJunk(word):
     lsWord = []
     startInd = 0
     for i in range(1, len(word)-1):
-        if word[i] in alphaNumeric:
+        if word[i] in specialChars or word[i] in numbers:
             lsWord.append(word[startInd:i])
             startInd=i+1
     return lsWord
@@ -134,6 +166,24 @@ def diffCount(fileOne, fileTwo):
                 diffCount += 1
     return "Differences between the two files: " + str(diffCount)
 
+
+
+
+"""
+function: recursive concatenate and spellcheck
+"""
+
+
+
+"""
+function: remove special chars
+"""
+def removeSpecialChars(line):
+    for i in line:
+        for j in i:
+            if j in specialChars:
+                j = ""
+    return line
 """
 function: determine if a string is a number
 """
@@ -163,7 +213,7 @@ function: determine if a string has internal junk chars
 """
 def hasInternalJunk(word):
     for i in range(1, len(word)-1):
-        if word[i] in alphaNumeric:
+        if word[i] in specialChars or word[i] in numbers:
             return True
     return False
 """
