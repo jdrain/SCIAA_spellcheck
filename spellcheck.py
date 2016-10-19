@@ -17,7 +17,7 @@ NWORDS = train(words(file('textFiles/Big.txt').read()))
 alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
 numbers = '0123456789'
 specialChars = '!@#$%^&*()_-+=?'
-chars=['/',':','.',',',';']
+chars=['/',',',';','\'']
 
 def edits1(word):
     s = [(word[:i], word[i:]) for i in range(len(word) + 1)]
@@ -42,8 +42,11 @@ def correct(word):
 MY OWN CODE BELOW THIS LINE
 
 TODO:
-    -Work on a function to try and concatenate adjacent words or split
-    over spaces
+    -Improve the processing of numbers by considering numbers with
+    extraneous chars around them
+    -Improve the processing of strings with colons at the end
+    -Maybe we should consider just leaving strings of junk alone; the
+    approach to solving seems to be doing more harm than good currently
 """
 
 """
@@ -90,13 +93,16 @@ def correctLineTwo(line):
             i+=1
         elif hasInternalJunk(line[i]):
             c=correctChars(line[i])
-            if c!= line[i]:
+            if c != line[i]:
                 newLine.append(c)
             else:
                 processed=processInternalJunk(line[i])
                 for j in processed:
                     newLine.append(correct(j))
             i+=1
+        elif hasSpecialChars(line[i]):
+            c=correctChars(line[i])
+
         else:
             c=correct(line[i])
             newLine.append(c)
@@ -111,7 +117,7 @@ def correctLine(line):
     while i<len(line):
         if isJunkString(line[i]):
             i+=1
-        elif isNum(line[i]):
+        elif isNumTwo(line[i]):
             newLine.append(line[i])
             i+=1
         elif hasInternalJunk(line[i]):
@@ -136,7 +142,13 @@ input: string
 def correctChars(word):
     for i in chars:
         s = word.split(i)
-        if len(s) != 1:
+        if word[len(word)-1] == ':':
+            ls = []
+            for j in s:
+                c = correct(j)
+                ls.append(c)
+            word = i.join(ls) + ":"
+        elif len(s) != 1:
             ls = []
             for j in s:
                 c = correct(j)
@@ -179,7 +191,9 @@ function: determine if a string is a number
 """
 def isNum(word):
     #check if word is a number
-    i = 0
+    if word[0] not in numbers or word[0] not in chars:
+        return False
+    i=1
     while isNum and i < len(word):
         if word[i] not in numbers:
             if i == len(word) - 1 and word[i] in chars:
@@ -188,6 +202,21 @@ def isNum(word):
                 return False
         i=i+1
     return True
+"""
+function: determine if a string is a number with a different technique
+"""
+def isNumTwo(word):
+    numCount=0
+    letterCount=0
+    for i in word:
+        if i in numbers:
+            numCount+=1
+        if i in alphabet:
+            letterCount+=1
+    if letterCount > 0 or numCount == 0:
+        return False
+    else:
+        return True
 """
 function: determine if a string is junk
 """
