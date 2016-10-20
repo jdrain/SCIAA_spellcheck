@@ -4,33 +4,25 @@ import spellcheck
 import parser
 import sys, os
 
-"""
-TODO:
-    -Need to fix the spellchecking on the dictionary
-"""
-
 filePath = sys.argv[1]
 fileList = parser.readFile(filePath)
 
-#print filename
+#print filename and contents
 print("\nsource file: " + filePath + "\n")
+for i in fileList:
+    print(i)
 
-#correct the file
-#cFileList = spellcheck.correctFile(fileList)
-
-#print("\nfile corrected with technique one:\n")
-#for i in range(0, len(cFileList)):
-#    print(cFileList[i])
-
-#print the differences between the two files
-#print(spellcheck.diffCount(fileList, cFileList))
-
-#parse and spellcheck
+#parse and print contents
+print("\nrefined file:\n")
 refinedFile = parser.looseLineListFilter(fileList)
-for value in refinedFile.items():
-    value = spellcheck.correctLine(value)
-    print(value)
+for i in refinedFile:
+    print(i)
 
-for keys,values in refinedFile.items():
-    print(keys)
-    print(values)
+#spellcheck the file
+correctedFile = []
+for i in refinedFile:
+    correctedFile.append([i[0], spellcheck.correctLine(i[1])])
+
+print("\nspellchecked:\n")
+for i in correctedFile:
+    print(i)

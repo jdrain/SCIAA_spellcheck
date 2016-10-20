@@ -15,7 +15,7 @@ def train(features):
 
 NWORDS = train(words(file('textFiles/Big.txt').read()))
 alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
-numbers = '0123456789'
+numbers = ['0','1','2','3','4','5','6','7','8','9']
 specialChars = '!@#$%^&*()_-+=?'
 chars=['/',',',';','\'']
 
@@ -42,11 +42,7 @@ def correct(word):
 MY OWN CODE BELOW THIS LINE
 
 TODO:
-    -Improve the processing of numbers by considering numbers with
-    extraneous chars around them
-    -Improve the processing of strings with colons at the end
-    -Maybe we should consider just leaving strings of junk alone; the
-    approach to solving seems to be doing more harm than good currently
+    -Add function to actually correct a field name with colon at the end
 """
 
 """
@@ -117,23 +113,16 @@ def correctLine(line):
     while i<len(line):
         if isJunkString(line[i]):
             i+=1
-        elif isNumTwo(line[i]):
+        elif isNum(line[i]):
             newLine.append(line[i])
             i+=1
-        elif hasInternalJunk(line[i]):
-            #try to correct the word as if it has special chars first
-            c=correctChars(line[i])
-            if c != line[i]:
-                newLine.append(c)
-            else:
-                processed = processInternalJunk(line[i])
-                for j in processed:
-                    newLine.append(correct(j))
+        elif isChars(line[i]):
+            newLine.append(line[i])
             i+=1
         else:
             c=correct(line[i])
             newLine.append(c)
-            i=i+1
+            i+=1
     return newLine
 """
 function: helper method to deal with special characters
@@ -191,17 +180,44 @@ function: determine if a string is a number
 """
 def isNum(word):
     #check if word is a number
-    if word[0] not in numbers or word[0] not in chars:
+    if word[0] not in numbers and word[0] not in chars:
         return False
-    i=1
-    while isNum and i < len(word):
-        if word[i] not in numbers:
-            if i == len(word) - 1 and word[i] in chars:
-                return True
-            else:
-                return False
-        i=i+1
+    if len(word)>1:
+        i=1
+        while i<len(word):
+            if word[i] not in numbers:
+                if i==len(word)-1 and word[i] in chars:
+                    return True
+                else:
+                    return False
+            i+=1
     return True
+"""
+function: determine if a word is just a char/string of chars
+"""
+def isChars(word):
+    if word[0] not in chars:
+        return False
+    if len(word)>1:
+        i=1
+        while i<len(word):
+            if word[i] not in chars:
+                return False
+        return True
+    else:
+        return True
+"""
+function: determine if a word is a fieldname
+"""
+def isField(word):
+    if word[len(word)-1] == ':':
+        #try to correct
+        if correct(word) != word:
+            return True
+        else:
+            return False
+    else:
+        return False
 """
 function: determine if a string is a number with a different technique
 """
