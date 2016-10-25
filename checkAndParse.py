@@ -2,9 +2,11 @@
 
 import spellcheck
 import parser
+from processData import toText, compileList
 import sys, os
 
 filePath = sys.argv[1]
+outFilePath = sys.argv[2]
 fileList = parser.readFile(filePath)
 
 #print filename and contents
@@ -23,6 +25,5 @@ correctedFile = []
 for i in refinedFile:
     correctedFile.append([i[0], spellcheck.correctLine(i[1])])
 
-print("\nspellchecked:\n")
-for i in correctedFile:
-    print(i)
+#output the list to a file
+toText(outFilePath, compileList(correctedFile))
