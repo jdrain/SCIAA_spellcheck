@@ -17,7 +17,7 @@ NWORDS = train(words(file('textFiles/Big.txt').read()))
 alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
 numbers = ['0','1','2','3','4','5','6','7','8','9']
 specialChars = '!@#$%^&*()_-+=?'
-chars=['/',',',';','\'']
+chars=['/',',',';','\'','.']
 
 def edits1(word):
     s = [(word[:i], word[i:]) for i in range(len(word) + 1)]
@@ -98,7 +98,6 @@ def correctLineTwo(line):
             i+=1
         elif hasSpecialChars(line[i]):
             c=correctChars(line[i])
-
         else:
             c=correct(line[i])
             newLine.append(c)
@@ -118,6 +117,9 @@ def correctLine(line):
             i+=1
         elif isChars(line[i]):
             newLine.append(line[i])
+            i+=1
+        elif isField(line[i]):
+            newLine.append(correctFieldName(line[i]))
             i+=1
         else:
             c=correct(line[i])
@@ -175,6 +177,12 @@ def removeSpecialChars(line):
             if j in specialChars:
                 j = ""
     return line
+"""
+function: correct a field name
+"""
+def correctFieldName(word):
+    field=word[:-1]
+    return correct(field)+":"
 """
 function: determine if a string is a number
 """
