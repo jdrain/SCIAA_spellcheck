@@ -11,3 +11,7 @@ This repository holds files for a spell checker
   + parser.py parses a file to grab pertinent info
 implementing these methods
   + other files are scripts to test or implement these methods
+3. Potential Features To Be Added
+  + need to decide the final format of the data to be output. Right now
+    support exists for a simple text file, but adding support for JSON or
+XML may make sense eventually
