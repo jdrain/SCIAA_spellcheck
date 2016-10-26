@@ -14,6 +14,13 @@ keys=[
      ]
 
 """
+TODO:
+    -Fix the recognition of 'excavation' as 'elevation
+    -Deal with fields that are indicated by an x or check mark
+"""
+
+
+"""
 function: to read files into a list
 input: file path
 output: list with each element a string corresponding to one line from
@@ -154,3 +161,27 @@ def checkForKey(line, keyList, startInd):
         return True
     else:
         return False
+"""
+function: determine if a line contains a checkmark field
+"""
+def isCheckmarkField(fieldName):
+    keys = ['level of significance','archaeological investigation']
+    for key in keys:
+        if fuzz.ratio(fieldName, key)>=70:
+            return True
+"""
+function: process a line that contains a checkmark field
+"""
+def processCheckmarkField(line):
+    val=''
+    i=0
+    found=False
+    alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
+    while i<len(line)-1 and found==False:
+        if len(line[i+1])==1 and line[i+1] in alphabet:
+            val=line[i]
+            found=True
+        else:
+            i+=1
+    return val
+

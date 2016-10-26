@@ -23,7 +23,18 @@ for i in refinedFile:
 #spellcheck the file
 correctedFile = []
 for i in refinedFile:
-    correctedFile.append([i[0], spellcheck.correctLine(i[1])])
+    key=i[0]
+    field=i[1]
+    if parser.isCheckmarkField(key):
+        field=parser.processCheckmarkField(field)
+        correctedFile.append([key, [spellcheck.correct(field)]])
+    else:
+        correctedFile.append([key, spellcheck.correctLine(field)])
+
+#print the list
+print("\ncorrected file:\n")
+for i in correctedFile:
+    print(i)
 
 #output the list to a file
 toText(outFilePath, compileList(correctedFile))
