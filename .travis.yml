@@ -2,6 +2,9 @@
 language: python
 python:
     - "2.7"
+#install dependencies
+install:
+    - pip install fuzzywuzzy
 script: python checkAndParse.py
 branches:
     only:
