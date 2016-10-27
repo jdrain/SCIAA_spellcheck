@@ -2,7 +2,7 @@
 language: python
 python:
     - "2.7"
-script: python SCIAA_spellcheck/checkAndParse.py
+script: python checkAndParse.py
 branches:
     only:
         - master
