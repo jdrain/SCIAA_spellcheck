@@ -1,6 +1,8 @@
 # SCIAA_spellcheck
 This repository holds files for a spell checker
 
+![alt-text](https://travis-ci.org/jdrain/SCIAA_spellcheck.svg?branch=master)
+
 1. Improvements Needed
   + parser.py needs to deal with fields that are indicated by a check
     mark or x
