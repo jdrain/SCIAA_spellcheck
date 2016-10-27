@@ -11,7 +11,7 @@ This repository holds files for a spell checker
   + parser.py parses a file to grab pertinent info
 implementing these methods
   + other files are scripts to test or implement these methods
+  + output can be formatted as .txt or .csv, depending on
+    preference
 3. Potential Features To Be Added
-  + need to decide the final format of the data to be output. Right now
-    support exists for a simple text file, but adding support for JSON or
-XML may make sense eventually
+  + features up to date for right now 
