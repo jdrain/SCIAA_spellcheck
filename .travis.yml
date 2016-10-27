@@ -5,7 +5,10 @@ python:
 #install dependencies
 install:
     - pip install fuzzywuzzy
-script: python checkAndParse.py
+#run some of the files
+script: python parser.py
+        python processData.py
+        python spellcheck.py
 branches:
     only:
         - master
