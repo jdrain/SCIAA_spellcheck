@@ -5,6 +5,7 @@ python:
 #install dependencies
 install:
     - pip install fuzzywuzzy
+    - pip install python-Levenshtein      
 #run some of the files
 script: python parser.py
         python processData.py
