@@ -4,7 +4,7 @@ from fuzzywuzzy import fuzz
 
 keys=[
       ["descriptive", "site", "type"],["prehistoric"],["historic"],
-      ["archaeological", "investigation"],["level", "of", "significance"],
+      ["archaeological", "investigation"],["level", "of","significance"],
       ["justification"],["landform", "location"],["site"],
       ["elevation"],["on", "site","soil", "type"],
       ["soil", "classification"],["major", "river", "system"],
@@ -17,6 +17,9 @@ keys=[
 TODO:
     -Fix the recognition of 'excavation' as 'elevation
     -Deal with fields that are indicated by an x or check mark
+    -How do we cope with noise in these checkmark fields?
+    -Give precedence to fields that have a colon after the last word
+    -Remove the underline characters
 """
 
 
@@ -117,6 +120,11 @@ def looseLineListFilter(lineList):
                 #call new method
                 if checkForKey(j,i,foundInd)==True:
                     ls.append([" ".join(i),j, rat])
+    print("\nprinting list pre-refinement\n")
+    for i in ls:
+        print(i)
+    print("\ndone\n")
+
     return determineBestMatch(ls)
 
 """
@@ -126,23 +134,24 @@ method for looseLineListFilter
 def determineBestMatch(ls):
     i=0
     ls1 = []
+    lsLen = len(ls)
     #go through the whole list
-    while (i<len(ls)):
+    while (i<lsLen):
         bestRatio=0
         startInd=i
         currentKey=ls[i][0]
         ls2=[currentKey]
         #we have multiple matches for certain keys. Loop and determine
         #which is the best one
-        while(i<len(ls) and ls[i][0]==currentKey):
+        while (i<lsLen and ls[i][0] == currentKey):
             if ls[i][2] > bestRatio:
                 bestRatio = ls[i][2]
             i+=1
-        #save the best match or matches
-        for k in range(startInd,i):
-            if ls[k][2] == bestRatio:
-                ls2.append(ls[k][1])
-        ls1.append(ls2) #add best matches to the list
+        #now choose the best one
+        for j in range(startInd, i):
+            if ls[j][2] == bestRatio:
+                ls2.append(ls[j][1])
+        ls1.append(ls2)
     return ls1
 """
 function: loop through a line and see if it contains a key
@@ -171,12 +180,14 @@ def isCheckmarkField(fieldName):
             return True
 """
 function: process a line that contains a checkmark field
+    -add functionality to differentiate between noise and legimate text
+    (give precedence to an x)
 """
 def processCheckmarkField(line):
     val=''
     i=0
     found=False
-    alphabet = 'abcdefghijklmnopqrstuvwxyz1234567890'
+    alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789'
     while i<len(line)-1 and found==False:
         if len(line[i+1])==1 and line[i+1] in alphabet:
             val=line[i]

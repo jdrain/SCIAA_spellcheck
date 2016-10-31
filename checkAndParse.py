@@ -2,11 +2,12 @@
 
 import spellcheck
 import parser
-from processData import toText, compileList
+import processData
 import sys, os
 
 filePath = sys.argv[1]
 outFilePath = sys.argv[2]
+csvFilePath = sys.argv[3]
 fileList = parser.readFile(filePath)
 
 #print filename and contents
@@ -36,5 +37,8 @@ print("\ncorrected file:\n")
 for i in correctedFile:
     print(i)
 
-#output the list to a file
-toText(outFilePath, compileList(correctedFile))
+#output the list to a text file
+processData.toText(outFilePath, processData.compileList(correctedFile))
+
+#output the list to a CSV file
+processData.toCSV(csvFilePath, processData.compressList(correctedFile))
