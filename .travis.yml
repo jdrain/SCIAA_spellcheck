@@ -7,9 +7,9 @@ install:
     - pip install fuzzywuzzy
     - pip install python-Levenshtein      
 #run some of the files
-script: python parser.py
-        python processData.py
-        python spellcheck.py
+script: python textProcessing.parser.py
+        python textProcessing.processData.py
+        python textProcessing.spellcheck.py
 branches:
     only:
         - master
