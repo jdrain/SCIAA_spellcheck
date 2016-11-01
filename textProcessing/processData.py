@@ -1,9 +1,12 @@
 import csv
+import json
 
 """
-data will come in as a list
+function: process json data from file
 """
-
+def processJSON(filepath):
+    data=json.load(open(filepath))
+    return data
 """
 function: compile list of form [['key', ['word1', 'word2']], ...]
 down to [['key word1 word2]]
@@ -18,7 +21,7 @@ def compileList(data):
     return ls
 """
 function: compress list of form [['key', ['word1', 'word2']], ...]
-down to [['key', 'word1 word2']]
+down to [['key', 'word1 word2'],...]
 """
 def compressList(data):
     ls=[]
@@ -29,7 +32,7 @@ def compressList(data):
             ls.append([i[0], " ".join(i[1])])
     return ls
 """
-function: write the list back to a text file
+function: write a list back to a text file
 """
 def toText(path, data):
     f=open(path, 'w')
@@ -38,7 +41,7 @@ def toText(path, data):
     f.close()
 
 """
-function: write the list back to a CSV file
+function: write a list back to a CSV file
 """
 def toCSV(path, data):
     with open(path, 'wb') as csvfile:

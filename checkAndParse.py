@@ -1,8 +1,8 @@
 #do a spellcheck and then parse the file
 
-import spellcheck
-import parser
-import processData
+import textProcessing.spellcheck as spellcheck
+import textProcessing.parser as parser
+import textProcessing.processData as processData
 import sys, os
 
 filePath = sys.argv[1]
@@ -15,9 +15,15 @@ print("\nsource file: " + filePath + "\n")
 for i in fileList:
     print(i)
 
+#get key data from json files
+checkmarkKeys=processData.processJSON("./textProcessing/checkmarkKeys.json")
+keys=processData.processJSON("./textProcessing/keys.json")
+checkmarkKeys=checkmarkKeys["1985_keys"]
+keys=keys["1985_keys"]
+
 #parse and print contents
 print("\nrefined file:\n")
-refinedFile = parser.looseLineListFilter(fileList)
+refinedFile = parser.looseLineListFilter(fileList,keys)
 for i in refinedFile:
     print(i)
 
@@ -26,7 +32,7 @@ correctedFile = []
 for i in refinedFile:
     key=i[0]
     field=i[1]
-    if parser.isCheckmarkField(key):
+    if parser.isCheckmarkField(key,checkmarkKeys):
         field=parser.processCheckmarkField(field)
         correctedFile.append([key, [spellcheck.correct(field)]])
     else:

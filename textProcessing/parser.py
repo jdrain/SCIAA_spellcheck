@@ -2,26 +2,12 @@
 
 from fuzzywuzzy import fuzz
 
-keys=[
-      ["descriptive", "site", "type"],["prehistoric"],["historic"],
-      ["archaeological", "investigation"],["level", "of","significance"],
-      ["justification"],["landform", "location"],["site"],
-      ["elevation"],["on", "site","soil", "type"],
-      ["soil", "classification"],["major", "river", "system"],
-      ["nearest", "river/stream"],["estimated", "site", "dimensions"],
-      ["site", "depth"],["cultural", "features"],
-      ["general", "site", "description"]
-     ]
-
 """
 TODO:
     -Fix the recognition of 'excavation' as 'elevation
-    -Deal with fields that are indicated by an x or check mark
     -How do we cope with noise in these checkmark fields?
-    -Give precedence to fields that have a colon after the last word
     -Remove the underline characters
 """
-
 
 """
 function: to read files into a list
@@ -60,8 +46,8 @@ information
 input: file list and a list of key substrings
 output: processed file list
 """
-def findLines(fileList):
-    keyCopy = keys #copy the list of keys
+def findLines(fileList,keys):
+    keyCopy=keys
     fileList.sort() #sort the fileList
     refinedFile = []
     for i in keyCopy:
@@ -73,11 +59,10 @@ def findLines(fileList):
                     keyCopy.remove(i)
                     substringFound = True
     return refinedFile
-
 """
 function: filter a lineList and try to find
 """
-def lineListFilter(lineList):
+def lineListFilter(lineList,keys):
     dic={}
     for i in lineList:
         for j in keys:
@@ -99,7 +84,7 @@ function: filter a lineList and try to find a match, but less rigorously
 TODO:
     -make more rigorous once it's working
 """
-def looseLineListFilter(lineList):
+def looseLineListFilter(lineList,keys):
     ls = []
     for i in keys:
         for j in lineList: 
@@ -120,11 +105,6 @@ def looseLineListFilter(lineList):
                 #call new method
                 if checkForKey(j,i,foundInd)==True:
                     ls.append([" ".join(i),j, rat])
-    print("\nprinting list pre-refinement\n")
-    for i in ls:
-        print(i)
-    print("\ndone\n")
-
     return determineBestMatch(ls)
 
 """
@@ -156,13 +136,13 @@ def determineBestMatch(ls):
 """
 function: loop through a line and see if it contains a key
 """
-def checkForKey(line, keyList, startInd):
+def checkForKey(line,keys,startInd):
     Matched=True
     i=startInd
     j=0
     #Make sure that subsequent words in a line match the key
-    while (i<startInd+len(keyList) and i<len(line) and Matched==True):
-        if fuzz.ratio(str(line[i]), str(keyList[j])) < 70:
+    while (i<startInd+len(keys) and i<len(line) and Matched==True):
+        if fuzz.ratio(str(line[i]), str(keys[j])) < 70:
             Matched=False
         i+=1
         j+=1
@@ -173,8 +153,7 @@ def checkForKey(line, keyList, startInd):
 """
 function: determine if a line contains a checkmark field
 """
-def isCheckmarkField(fieldName):
-    keys = ['level of significance','archaeological investigation']
+def isCheckmarkField(fieldName,keys):
     for key in keys:
         if fuzz.ratio(fieldName, key)>=70:
             return True
