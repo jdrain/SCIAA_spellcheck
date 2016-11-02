@@ -4,6 +4,9 @@ This repository holds files for a spell checker
 ![alt-text](https://travis-ci.org/jdrain/SCIAA_spellcheck.svg?branch=master)
 
 1. Improvements Needed
+  + support fields that are multiple lines
+  + support fields that are circled
+  + support fields that are on the next line from the field name 
   + spellcheck just needs to be better in general. Although it may be
     close to the point of diminishing returns...
 2. Usage
@@ -16,5 +19,3 @@ implementing these methods
     parser needs to decide which lines to pull and which to ignore.
   + output can be formatted as .txt or .csv, depending on
     preference
-3. Potential Features To Be Added
-  + features up to date for right now 

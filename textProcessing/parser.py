@@ -174,4 +174,17 @@ def processCheckmarkField(line):
         else:
             i+=1
     return val
+"""
+function: remove underlines from the files
+"""
+def removeUnderlines(filelist):
+    ls=[]
+    for i in filelist:
+        ls1=[]
+        for j in i:
+            j=j.replace("_"," ")
+            j=j.replace("-"," ")
+            ls1.append(j)
+        ls.append(ls1)
+    return ls
 

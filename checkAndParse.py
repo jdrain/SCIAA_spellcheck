@@ -8,7 +8,7 @@ import sys, os
 filePath = sys.argv[1]
 outFilePath = sys.argv[2]
 csvFilePath = sys.argv[3]
-fileList = parser.readFile(filePath)
+fileList = parser.removeUnderlines(parser.readFile(filePath))
 
 #print filename and contents
 print("\nsource file: " + filePath + "\n")
