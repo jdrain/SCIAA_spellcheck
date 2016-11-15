@@ -18,12 +18,16 @@ for i in fileList:
 #get key data from json files
 checkmarkKeys=processData.processJSON("./textProcessing/checkmarkKeys.json")
 keys=processData.processJSON("./textProcessing/keys.json")
-checkmarkKeys=checkmarkKeys["1985_keys"]
+checkmarkKeys=keys["1985_checkmark_keys"]
+nextLineKeys=keys["1985_next_line_keys"]
+multipleLineKeys=keys["1985_multiple_line_keys"]
 keys=keys["1985_keys"]
 
 #parse and print contents
 print("\nrefined file:\n")
-refinedFile = parser.looseLineListFilter(fileList,keys)
+refinedFile =(
+parser.looseLineListFilter(fileList,keys,nextLineKeys,multipleLineKeys)
+)
 for i in refinedFile:
     print(i)
 

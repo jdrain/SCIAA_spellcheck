@@ -15,9 +15,9 @@ def compileList(data):
     ls = []
     for i in data:
         if len(i[1])==1:
-            ls.append("\n"+i[0]+"\n"+i[1][0]+"\n")
+            ls.append("\n"+str(i[0])+"\n"+str(i[1][0])+"\n")
         else:
-            ls.append("\n"+i[0]+"\n"+" ".join(i[1])+"\n")
+            ls.append("\n"+str(i[0])+"\n"+" ".join(i[1])+"\n")
     return ls
 """
 function: compress list of form [['key', ['word1', 'word2']], ...]
@@ -31,6 +31,19 @@ def compressList(data):
         else:
             ls.append([i[0], " ".join(i[1])])
     return ls
+"""
+function: compress list of the form [['key','w1',...'wn']..]
+down to [['key', 'w1 ... wn']...]
+"""
+def compress_list(data):
+    ls=[]
+    for i in data:
+        if len(i)>2:
+            ls.append([i[0]," ".join(i[1:len(i)-1])])
+        else:
+            ls.append(i)
+    return ls   
+
 """
 function: write a list back to a text file
 """
