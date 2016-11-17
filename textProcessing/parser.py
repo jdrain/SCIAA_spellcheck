@@ -47,7 +47,7 @@ def filter_potential_data(keys,file_list):
     for key in keys.keys():
         for i in find_keys(keys[key][0],file_list,keys[key][1]):
             ls.append(i)
-    return ls
+    return choose_best(ls)
 """
 function: help find keys
 ls is of the form: [[key, startInd, finalInd, fuzz ratio]...]
@@ -67,7 +67,7 @@ def find_keys(key,file_list,end):
                     not_found=True
                 j+=1
                 k+=1
-            rat=fuzz.ratio(" ".join(file_list[i:j])," ".join(key))
+            rat=fuzz.ratio(str(" ".join(file_list[i:j])),str(" ".join(key)))
             if not_found==False:
                 print("found start")
                 ls=[]
@@ -92,6 +92,25 @@ def find_keys(key,file_list,end):
                             ls1.append(ls)
                     j+=1
     return ls1
+"""
+function: choose the best extraction for each key
+"""
+def choose_best(filtered_data):
+    data=[]
+    i=0
+    while i<len(filtered_data):
+        best_ratio=filtered_data[i][3]
+        best_ratio_ind=i
+        while i<len(filtered_data)-1 and filtered_data[i][0]==filtered_data[i+1][0]:
+            print("entered while loop")
+            if filtered_data[i+1][3]>best_ratio:
+                print("new best ratio")
+                best_ratio=filtered_data[i+1][3]
+                best_ratio_ind=i+1
+            i+=1
+        data.append(filtered_data[best_ratio_ind])
+        i+=1
+    return data
 """
 function: extract the actual data once it has been filtered
 """
@@ -139,6 +158,19 @@ def process_checked_field(file_list,key,start,end):
             ls1.append(file_list[j-1])
     return ls1
 """
+function: deal with circled fields
+"""
+def process_circled_field(file_list,key,start,end):
+    ls=[]
+    ls.append(key)
+    for i in range(start+1,end-1):
+        print("element "+str(i)+": "+str(file_list[i]))
+        if (len(file_list[i])!=1 and len(file_list[i-1])==1
+                and len(file_list[i+1])==1):
+            print("found a circled option")
+            ls.append(file_list[i])
+    return ls
+"""
 function: remove extraneous chars from data that may have gotten through
 previous filtering
 """
@@ -173,8 +205,6 @@ def remove_new_lines(file_list):
     for i in range(0, len(file_list)):
         file_list[i]=file_list[i].replace("\n","")
     return file_list
-
-
 """
 function: to detect a substring within another string
 input: a string and then a substring to be searched for
@@ -416,14 +446,32 @@ def nextLineField(lineList,currentInd):
 """
 function: remove underlines from the files
 """
-def removeUnderlines(filelist):
+def remove_underlines(file_list):
+    nums=['1','2','3','4','5','6','7','8','9','0']
     ls=[]
-    for i in filelist:
-        ls1=[]
-        for j in i:
-            j=j.replace("_"," ")
-            j=j.replace("-"," ")
-            ls1.append(j)
-        ls.append(ls1)
+    i=0
+    while i<len(file_list):
+        file_list[i]=file_list[i].replace("_"," ")
+        file_list[i]=file_list[i].replace("-"," ")
+        file_list[i]=file_list[i].replace("."," ")
+        ls.append(file_list[i])
+        i+=1
     return ls
-
+"""
+function: remove the numbers from the beginnings of lines
+"""
+def remove_newline_nums(file_list):
+    nums=['1','2','3','4','5','6','7','8','9','0']
+    nums2=[i+" " for i in nums]
+    ls=[]
+    #for debug
+    print(file_list)
+    #take out nums after newline
+    for i in range(0, len(file_list)):
+        if (i>0 and file_list[i] in nums or (file_list[i]) in nums2
+                and file_list[i-1]=="\n"):
+            #don't add the newline num
+            pass
+        else:
+            ls.append(file_list[i])
+    return ls

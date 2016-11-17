@@ -19,7 +19,9 @@ for key in keys:
     print(key)
 
 #parse
-parsed=parser.filter_potential_data(keys["1985"],fileList)
+fileList=parser.remove_underlines(fileList)
+fileList=parser.remove_newline_nums(fileList)
+parsed=parser.choose_best(parser.filter_potential_data(keys["1985"],fileList))
 extracted=parser.extract_data(fileList,parsed,keys["1985"])
 
 #print results

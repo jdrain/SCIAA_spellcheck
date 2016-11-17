@@ -1,0 +1,160 @@
+{
+"1985":
+	{
+	"descriptive site type":
+	    [
+		["descriptive", "site","type"],
+		["archaeological"," investigaton"],
+		[true],
+		[true],
+		[false],
+		[false],
+		[false]
+	    ],
+	
+	"archaeological investigation":
+	    [
+		["archaeological","investigation"],
+		["property","owner"],
+		[false],
+		[true],
+		[false],
+		[false],
+		[true]
+	    ],
+
+        "level of significance":
+	    [
+		["level","of","significance"],
+		["justification"],
+		[false],
+		[true],
+		[false],
+		[false],
+		[true]
+	    ],
+
+	"justification":
+	    [
+		["justification"],
+		["environment","and","location"],
+		[false],
+		[false],
+		[true],
+		[false],
+		[false]
+	    ],
+	
+	"landform location":
+	    [
+		["landform","location"],
+		["site","elevation"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[false]
+	    ],
+
+	"site elevation (above msl)":
+	    [
+		["site","elevation","(above","msl)"],
+		["(in","feet)"],
+		[false],
+		[false],
+		[false],
+		[true],
+		[false]
+	    ],
+	
+	"on site soil type":
+	    [
+		["on","site","soil","type"],
+		["soil","classification"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[true]
+	    ],
+	
+	"soil classification":
+	    [
+		["soil","classification"],
+		["major","river","system"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[true]
+	    ],
+
+	"major river system":
+	    [
+		["major","river","system"],
+		["nearest","river/stream"],
+		[false],
+		[true],
+		[false],
+		[false],
+		[true]
+	    ],
+    
+	"nearest river/stream":
+	    [
+		["nearest","river/stream"],
+		["current","vegetation"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[false]
+	    ],
+
+	"estimated site dimensions":
+	    [
+		["estimated","site","dimensions"],
+		["site","depth"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[false]
+	    ],
+
+	"site depth":
+	    [
+		["site","depth"],
+		["cm"],
+		[false],
+		[false],
+		[false],
+		[true],
+		[false]
+
+	    ],
+
+	"cultural features":
+	    [
+		["cultural","features"],
+		["presence","of"],
+		[false],
+		[false],
+		[true],
+		[false],
+		[true]
+	    ],
+
+	"general site description":
+	    [
+		["general","site","description"],
+		["use","in","conjunction","with","handbook"],
+		[false],
+		[false],
+		[true],
+		[false],
+		[false]
+	    ]
+
+	}
+}
