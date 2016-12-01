@@ -157,4 +157,162 @@
 	    ]
 
 	}
+
+ "68-1-2":
+	{
+	"site type":
+	    [
+		["site","type"],
+		["cultural","affiliation"],
+		[false],
+		[false],
+		[true],
+		[false],
+		[false],
+		["DST_Historic","DST_Prehistoric"]
+	    ],
+
+	"cultural affiliation":
+	    [
+		["archaeological","investigation"],
+		["property","owner"],
+		[false],
+		[true],
+		[false],
+		[]
+	    ]
+	},
+
+ "68-1-3":
+	{
+	"location: nearest stream/water (name)":
+	    [
+		["location:","nearest","stream/water","(name)"],
+		["distance","to","nearest","stream/water"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[false],
+		["NearestRiverStream"]
+	    ],
+
+	"additional description":
+	    [
+		["additional","description"],
+		["surface","collection"],
+		[false],
+		[false],
+		[true],
+		[false],
+		[false],
+		["GeneralSiteDescription"]
+	    ],
+
+	"depth/character of fill":
+	    [
+		["depth/character","of","fill"],
+	        ["material","observed"],
+		[false],
+	        [false],
+		[false],
+		[false],
+		[false],
+		["SiteDepth"]
+	    ]
+	},
+
+ "AH":
+	{
+	"description":
+	    [
+		["description"],
+		["owner","and","address"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[false],
+		["GeneralSiteDescription"]
+	    ],
+
+	"depth/character of fill":
+	    [
+		["depth/character","of","fill"],
+		["material","observed/reported"],
+		[false],
+		[false],
+		[true],
+		[false],
+		[false],
+		["SoilType"]
+	    ]
+	},
+
+ "AH-2":
+	{
+	"additional description":
+	    [
+		["additional","description"],
+		["surface","collection"],
+		[false],
+		[false],
+		[true],
+		[false],
+		[false],
+		["GeneralSiteDescription"]
+	    ],
+
+	"nearest stream/water(name)":
+	    [
+		["nearest","stream/water(name)"],
+		["distance","to","nearest","water(miles)"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[true],
+		["NearestRiverStream"]
+	    ],
+	
+	"depth/character of fill":
+	    [
+		["depth/character","of","fill"],
+		["material","observed"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[false],
+		["SoilType"]
+	    ]
+	},
+ 
+ "DateConversions":
+	{
+	    "January":"1",
+	    "Jan":"1",
+	    "February":"2",
+	    "Feb":"2",
+	    "March":"3",
+	    "Mar":"3",
+	    "April":"4",
+	    "Apr":"4",
+	    "May":"5",
+	    "June":"6",
+	    "Jun":"6",
+	    "July":"7",
+	    "Jul":"7",
+	    "August":"8",
+	    "Aug":"8",
+	    "September":"9",
+	    "Sept":"9",
+	    "October":"10",
+	    "Oct":"10",
+	    "November":"11",
+	    "Nov":"11",
+	    "December":"12",
+	    "Dec":"12"
+	}
+
 }

@@ -40,128 +40,33 @@ def correct(word):
 
 """
 MY OWN CODE BELOW THIS LINE
-
-TODO:
-    -Add function to actually correct a field name with colon at the end
 """
 
 """
-function: read in file
+function: spellcheck the extracted data before compilation into final
+file
+list should be of the form: [[key1, val1, val2, ...,valn],...]
 """
-def readFile(path):
-    f = file(path)
-    fileList = []
-    for line in f:
-        if line != "\n":
-            line = line.lower()
-            ls = line.split()
-            if line != []:
-                fileList.append(ls)
-    return fileList
-"""
-function: correct the file
-"""
-def correctFile(fileList):
-    ls1 = []
-    for i in fileList:
-        ls1.append(correctLine(i))
-    return ls1
-"""
-function: correct the file with a different technique
-"""
-def correctFileTwo(fileList):
+def spellcheck_extracted_data(file_list):
     ls=[]
-    for i in fileList:
-        ls.append(correctLineTwo(i))
-    return ls
-"""
-function: correct a line with another technique
-"""
-def correctLineTwo(line):
-    newLine= []
-    i = 0
-    line=removeSpecialChars(line)
-    while i<len(line):
-        if isJunkString(line[i]):
-            i+=1
-        elif isNum(line[i]):
-            newLine.append(line[i])
-            i+=1
-        elif hasInternalJunk(line[i]):
-            c=correctChars(line[i])
-            if c != line[i]:
-                newLine.append(c)
+    for i in file_list:
+        ls1=[i[0]]
+        for j in range(1, len(i)):
+            #leave numbers alone 
+            #leave small words alone
+            if len(i[j])<=2:
+                ls1.append(i[j])
+            elif is_num(i[j]):
+                ls1.append(i[j])
             else:
-                processed=processInternalJunk(line[i])
-                for j in processed:
-                    newLine.append(correct(j))
-            i+=1
-        elif hasSpecialChars(line[i]):
-            c=correctChars(line[i])
-        else:
-            c=correct(line[i])
-            newLine.append(c)
-            i+=1
-    return newLine
-"""
-function: correct a whole line
-"""
-def correctLine(line):
-    newLine = []
-    i = 0
-    while i<len(line):
-        if isJunkString(line[i]):
-            i+=1
-        elif isNum(line[i]):
-            newLine.append(line[i])
-            i+=1
-        elif isChars(line[i]):
-            newLine.append(line[i])
-            i+=1
-        elif isField(line[i]):
-            newLine.append(correctFieldName(line[i]))
-            i+=1
-        else:
-            c=correct(line[i])
-            newLine.append(c)
-            i+=1
-    return newLine
-"""
-function: helper method to deal with special characters
-input: string
-"""
-def correctChars(word):
-    for i in chars:
-        s = word.split(i)
-        if word[len(word)-1] == ':':
-            ls = []
-            for j in s:
-                c = correct(j)
-                ls.append(c)
-            word = i.join(ls) + ":"
-        elif len(s) != 1:
-            ls = []
-            for j in s:
-                c = correct(j)
-                ls.append(c)
-            word = i.join(ls)
-    return word
-"""
-function: process a string with internal junk chars
-"""
-def processInternalJunk(word):
-    lsWord = []
-    startInd = 0
-    for i in range(1, len(word)-1):
-        if word[i] in specialChars or word[i] in numbers:
-            lsWord.append(word[startInd:i])
-            startInd=i+1
-    return lsWord
+                ls1.append(correct(i[j]))
+        ls.append(ls1)
+    return ls
 """
 function: count the differences in files
 args: files in two dimensional list form
 """
-def diffCount(fileOne, fileTwo):
+def diff_count(fileOne, fileTwo):
     diffCount = 0
     for i in range(0, len(fileOne)):
         for j in range(0, len(fileOne[i])):
@@ -169,101 +74,16 @@ def diffCount(fileOne, fileTwo):
                 diffCount += 1
     return "Differences between the two files: " + str(diffCount)
 """
-function: remove special chars
-"""
-def removeSpecialChars(line):
-    for i in line:
-        for j in i:
-            if j in specialChars:
-                j = ""
-    return line
-"""
-function: correct a field name
-"""
-def correctFieldName(word):
-    field=word[:-1]
-    return correct(field)+":"
-"""
 function: determine if a string is a number
 """
-def isNum(word):
+def is_num(word):
     #check if word is a number
-    if word[0] not in numbers and word[0] not in chars:
+    if word[0] not in numbers:
         return False
     if len(word)>1:
         i=1
         while i<len(word):
             if word[i] not in numbers:
-                if i==len(word)-1 and word[i] in chars:
-                    return True
-                else:
-                    return False
+                return False
             i+=1
     return True
-"""
-function: determine if a word is just a char/string of chars
-"""
-def isChars(word):
-    if word[0] not in chars:
-        return False
-    if len(word)>1:
-        i=1
-        while i<len(word):
-            if word[i] not in chars:
-                return False
-        return True
-    else:
-        return True
-"""
-function: determine if a word is a fieldname
-"""
-def isField(word):
-    if word[len(word)-1] == ':':
-        #try to correct
-        if correct(word) != word:
-            return True
-        else:
-            return False
-    else:
-        return False
-"""
-function: determine if a string is a number with a different technique
-"""
-def isNumTwo(word):
-    numCount=0
-    letterCount=0
-    for i in word:
-        if i in numbers:
-            numCount+=1
-        if i in alphabet:
-            letterCount+=1
-    if letterCount > 0 or numCount == 0:
-        return False
-    else:
-        return True
-"""
-function: determine if a string is junk
-"""
-def isJunkString(word):
-    #look at backslash
-    backCount=0
-    if "\\" in r"%r" % word:
-            return True
-    else:
-        return False
-"""
-function: determine if a string has internal junk chars
-"""
-def hasInternalJunk(word):
-    for i in range(1, len(word)-1):
-        if word[i] in specialChars or word[i] in numbers:
-            return True
-    return False
-"""
-function: determine if a string has internal special chars
-"""
-def hasSpecialChars(word):
-    for i in word:
-        if i in chars:
-            return True
-    return False

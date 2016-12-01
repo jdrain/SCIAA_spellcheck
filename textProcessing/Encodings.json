@@ -1,0 +1,28 @@
+{
+ "MajorRiver":
+    {
+	"pee dee":"0",
+	"santee":"1",
+	"ashley-combahee-edisto":"2",
+	"savannah":"3"
+    },
+
+ "SoilType":
+    {
+	"clay":"0",
+	"clay/loam":"1",
+	"silt/clay":"2",
+	"sandy/clay/loam":"3",
+	"sandy/loam":"4",
+	"sand":"5",
+	"silt":"6",
+	"silty/loam":"7",
+	"sandy/clay":"8",
+	"silty/clay/loam":"9",
+	"loam":"10",
+	"loam/sand":"11",
+	"gravel":"12",
+	"organic":"13",
+	"other":"14"
+    }
+}

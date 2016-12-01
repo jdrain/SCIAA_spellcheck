@@ -3,13 +3,6 @@
 from fuzzywuzzy import fuzz
 
 """
-TODO:
-    -Fix the recognition of 'excavation' as 'elevation
-    -How do we cope with noise in these checkmark fields?
-    -Remove the underline characters
-"""
-
-"""
 function: read a file into a one dimension list of words
 """
 def read_file_simple(path):
@@ -38,7 +31,6 @@ def filter_potential_data(keys,file_list):
 function: help find keys
 ls is of the form: [[key, startInd, finalInd, fuzz ratio]...]
 """
-
 def find_keys(key,file_list,end):
     ls1=[]
     for i in range(0,len(file_list)):
