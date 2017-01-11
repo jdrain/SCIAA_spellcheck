@@ -20,12 +20,13 @@ function: extract indices where info associated with certain keys will
 start and end, as well as the fuzz ratio of that key
 """
 def filter_potential_data(keys,file_list):
-    for key in keys.keys():
-        print(keys[key][0])
     ls=[]
     for key in keys.keys():
         for i in find_keys(keys[key][0],file_list,keys[key][1]):
             ls.append(i)
+    for i in ls:
+        print(i)
+        print(file_list[i[1]:i[2]])
     return choose_best(ls)
 """
 function: help find keys
@@ -36,7 +37,6 @@ def find_keys(key,file_list,end):
     for i in range(0,len(file_list)):
         if fuzz.ratio(str(file_list[i]),str(key[0]))>=80:
             #start iterating
-            print("iterating")
             j=i+1
             k=1
             not_found=False
@@ -47,7 +47,6 @@ def find_keys(key,file_list,end):
                 k+=1
             rat=fuzz.ratio(str(" ".join(file_list[i:j])),str(" ".join(key)))
             if not_found==False:
-                print("found start")
                 ls=[]
                 ls.append(" ".join(key))
                 ls.append(j)
@@ -63,7 +62,6 @@ def find_keys(key,file_list,end):
                                 potential_match=False
                             l+=1
                         if potential_match==True:
-                            print("found end")
                             found_end=True
                             ls.append(j)
                             ls.append(rat)
@@ -80,9 +78,7 @@ def choose_best(filtered_data):
         best_ratio=filtered_data[i][3]
         best_ratio_ind=i
         while i<len(filtered_data)-1 and filtered_data[i][0]==filtered_data[i+1][0]:
-            print("entered while loop")
             if filtered_data[i+1][3]>best_ratio:
-                print("new best ratio")
                 best_ratio=filtered_data[i+1][3]
                 best_ratio_ind=i+1
             i+=1
@@ -113,15 +109,128 @@ def extract_data(file_list,filtered_data,keys):
                 #is the field on the next line or multiple lines?
                 if keys[key][2][0]==True or keys[key][4][0]==True:
                     #ignore newline chars
-                    print("ignoring newlines\n")
                     ls.append([key," ".join(file_list[start:end])])
                 #is the field a checked field?
                 if keys[key][3][0]==True:
                     #deal with checked fields
-                    print("found a checked field!")
                     ls.append(process_checked_field(file_list,key,start,end))
         i+=1
     return remove_extra_chars(ls,keys,nums)
+"""
+function: translate the output of extract_data into DB enterable format
+"""
+def database_format(data,keys,encoding_keys):
+    #do stuff for key translation
+    ls=[]
+    encod_keys=encoding_keys.keys()
+    print("\nNow formatting for DB\n")
+    for i in range(0,len(data)):
+        top_key=data[i][0]
+        db_key=keys[top_key][7][0]
+        info=data[i][1:len(data[i])]
+        added=False
+
+        #for debug
+        print("\nTop Key: "+top_key)
+        print("DB Key: "+db_key)
+        print("Info: ")
+        print(info)
+        if info==[]:
+            pass
+        else:
+            #deal with estimated site dimensions
+            #maybe generalize this segment of code later
+            #but for now it will do
+
+            if top_key=="estimated site dimensions":
+                esd_keys=keys[top_key][7]
+                for i in process_site_dimensions(info,esd_keys):
+                    ls.append(i)
+                added=True
+            #eventually add a db_column var
+            #do stuff to deal with multi-option fields
+            elif len(keys[top_key][7]) > 1:
+                key=keys[top_key]
+                #we have a multi-option field
+                for i in choose_multi_option_field(info,key):
+                    ls.append(i)
+                added=True
+            #do stuff for numerically encoded fields
+            if db_key in encod_keys:
+                #process that ish
+                #this block really should be a separate method
+                ls.append(process_encoded_fields(info,db_key,encoding_keys))
+                added=True
+            if added==False:
+                ls.append([db_key," ".join(info)])
+    return ls
+"""
+function: process site dimensions
+"""
+def process_site_dimensions(info,keys):
+    #find pure numbers
+    nums=['1','2','3','4','5','6','7','8','9','0']
+    ls=[]
+    k=0
+    print("\nprocessing site dimensions: \n")
+    info=info[0].split();
+    print("\ninfo: \n")
+    print(info)
+    print("\nkeys: \n")
+    print(keys)
+    for i in info:
+        #is it a pure number?
+        if k<len(keys):
+            is_num=True
+            for j in i:
+                if j not in nums:
+                    is_num=False
+            if is_num==True:
+                ls.append([keys[k],i])
+                print("\nappended: \n")
+                print([keys[k],i])
+                k+=1
+        else:
+            break
+    return ls
+
+"""
+function: process encoding key fields
+"""
+def process_encoded_fields(info,db_key,encoding_keys):
+    best_ratio=0
+    best_key="none"
+    for key in encoding_keys[db_key]:
+        rat=fuzz.ratio(str(key),str(info[0]))
+        if rat > best_ratio:
+            best_ratio=rat
+            best_key=key
+    if best_ratio >= 80:
+        info=[encoding_keys[db_key][best_key]]
+    else:
+        info=[""]
+    return [db_key," ".join(info)]
+"""
+function: divide a multi-option field into it's corresponding field in the DB,
+based upon which value it has
+"""
+def choose_multi_option_field(field_info,key):
+    #which key does field info match?
+    ls=[]
+    for i in field_info:
+        best_ratio=0
+        best_match=""
+        for j in range(0,len(key[8])):
+            rat=fuzz.ratio(str(key[8][j]),str(i))
+            if rat>best_ratio:
+                best_ratio=rat
+                best_match=key[7][j]
+        if best_ratio>=80:
+            ls.append([best_match,1])
+        else:
+            pass
+    return ls
+
 """
 function: deal with checked fields
 """
@@ -129,10 +238,8 @@ def process_checked_field(file_list,key,start,end):
     ls1=[]
     ls1.append(key)
     for j in range(start,end):
-        print("element "+str(j)+": "+str(file_list[j]))
         if (j!=0 and len(file_list[j])==1 and
         file_list[j] != "\n" and len(file_list[j-1])!=1):
-            print("found a checked option")
             ls1.append(file_list[j-1])
     return ls1
 """
@@ -157,24 +264,17 @@ def remove_extra_chars(file_list,keys,nums):
     for i in range(0, len(ls)):
         #index 0 is the key
         key=ls[i][0]
-        print("current key: "+str(key))
         if keys[key][6][0]==True:
-            print("found non-numeric entry: "+str(key))
-            print("current entry: "+str(ls[i]))
             #process out numeric data
             for j in range(1,len(ls[i])):
                 for num in nums:
                     ls[i][j]=str(ls[i][j]).replace(num,"")
-            print("final entry: "+str(ls[i]))
         elif keys[key][5][0]==True:
-            print("found numeric entry: "+str(key))
-            print("current entry: "+str(ls[i]))
             #process out non-numeric data
             for j in range(1,len(ls[i])):
                 for char in ls[i][j]:
                     if char not in nums:
                         ls[i][j]=ls[i][j].replace(char,"")
-            print("final entry: "+str(ls[i]))
     return ls
 """
 function: remove new line chars
@@ -187,7 +287,6 @@ def remove_new_lines(file_list):
 function: remove underlines from the files
 """
 def remove_underlines(file_list):
-    nums=['1','2','3','4','5','6','7','8','9','0']
     ls=[]
     i=0
     while i<len(file_list):
@@ -202,14 +301,12 @@ function: remove the numbers from the beginnings of lines
 """
 def remove_newline_nums(file_list):
     nums=['1','2','3','4','5','6','7','8','9','0']
-    nums2=[i+" " for i in nums]
     ls=[]
     #for debug
     print(file_list)
     #take out nums after newline
-    for i in range(0, len(file_list)):
-        if (i>0 and file_list[i] in nums or (file_list[i]) in nums2
-                and file_list[i-1]=="\n"):
+    for i in range(1, len(file_list)):
+        if (file_list[i] in nums and file_list[i-1]=="\n"):
             #don't add the newline num
             pass
         else:

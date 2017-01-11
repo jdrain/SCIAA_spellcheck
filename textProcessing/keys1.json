@@ -1,17 +1,29 @@
 {
 "1985":
 	{
-	"descriptive site type":
+
+	"prehistoric":
 	    [
-		["descriptive", "site","type"],
-		["archaeological"," investigaton"],
-		[true],
-		[true],
+		["prehistoric"],
+		["historic"],
 		[false],
 		[false],
-		[false]
+		[false],
+		[false],
+		[true],
+		["DST_PREHIS"]
 	    ],
-	
+	"historic":
+	    [
+		["historic"],
+		["archaeological","investigation"],
+		[false],
+		[false],
+		[false],
+		[false],
+		[true],
+		["DST_HISTOR"]
+	    ],
 	"archaeological investigation":
 	    [
 		["archaeological","investigation"],
@@ -20,7 +32,9 @@
 		[true],
 		[false],
 		[false],
-		[true]
+		[true],
+		["AI_SURVEY","AI_TESTING","AI_EXCAVAT"],
+		["survey","testing","excavation"]
 	    ],
 
         "level of significance":
@@ -31,7 +45,9 @@
 		[true],
 		[false],
 		[false],
-		[true]
+		[true],
+		["LOS_NATION","LOS_STATE","LOS_LOCAL"],
+		["national","state","local"]
 	    ],
 
 	"justification":
@@ -42,9 +58,10 @@
 		[false],
 		[true],
 		[false],
-		[false]
+		[false],
+		["JUSTIFICAT"]
 	    ],
-	
+
 	"landform location":
 	    [
 		["landform","location"],
@@ -53,7 +70,8 @@
 		[false],
 		[false],
 		[false],
-		[false]
+		[false],
+		["LANDFORMLO"]
 	    ],
 
 	"site elevation (above msl)":
@@ -64,9 +82,10 @@
 		[false],
 		[false],
 		[true],
-		[false]
+		[false],
+		["SITEELEVAT"]
 	    ],
-	
+
 	"on site soil type":
 	    [
 		["on","site","soil","type"],
@@ -75,9 +94,10 @@
 		[false],
 		[false],
 		[false],
-		[true]
+		[true],
+		["SOILTYPE"]
 	    ],
-	
+
 	"soil classification":
 	    [
 		["soil","classification"],
@@ -86,7 +106,8 @@
 		[false],
 		[false],
 		[false],
-		[true]
+		[true],
+		["SOILCLASSI"]
 	    ],
 
 	"major river system":
@@ -97,9 +118,10 @@
 		[true],
 		[false],
 		[false],
-		[true]
+		[true],
+		["MAJORRIVER"]
 	    ],
-    
+
 	"nearest river/stream":
 	    [
 		["nearest","river/stream"],
@@ -108,7 +130,8 @@
 		[false],
 		[false],
 		[false],
-		[false]
+		[false],
+		["NEARESTRIV"]
 	    ],
 
 	"estimated site dimensions":
@@ -119,7 +142,8 @@
 		[false],
 		[false],
 		[false],
-		[false]
+		[false],
+		["SITELENGTH","SITEWIDTH"]
 	    ],
 
 	"site depth":
@@ -130,7 +154,8 @@
 		[false],
 		[false],
 		[true],
-		[false]
+		[false],
+		["SITEDEPTH"]
 
 	    ],
 
@@ -142,7 +167,8 @@
 		[false],
 		[true],
 		[false],
-		[true]
+		[true],
+		["CULTURALFE"]
 	    ],
 
 	"general site description":
@@ -153,10 +179,11 @@
 		[false],
 		[true],
 		[false],
-		[false]
+		[false],
+		["GENERALSIT"]
 	    ]
 
-	}
+	},
 
  "68-1-2":
 	{
@@ -169,7 +196,7 @@
 		[true],
 		[false],
 		[false],
-		["DST_Historic","DST_Prehistoric"]
+		["DST_HISTOR","DST_PREHIS"]
 	    ],
 
 	"cultural affiliation":
@@ -194,7 +221,7 @@
 		[false],
 		[false],
 		[false],
-		["NearestRiverStream"]
+		["NEARESTRIV"]
 	    ],
 
 	"additional description":
@@ -206,7 +233,7 @@
 		[true],
 		[false],
 		[false],
-		["GeneralSiteDescription"]
+		["GENERALSIT"]
 	    ],
 
 	"depth/character of fill":
@@ -218,7 +245,7 @@
 		[false],
 		[false],
 		[false],
-		["SiteDepth"]
+		["SOILTYPE"]
 	    ]
 	},
 
@@ -233,7 +260,7 @@
 		[false],
 		[false],
 		[false],
-		["GeneralSiteDescription"]
+		["GENERALSIT"]
 	    ],
 
 	"depth/character of fill":
@@ -245,7 +272,7 @@
 		[true],
 		[false],
 		[false],
-		["SoilType"]
+		["SOILTYPE"]
 	    ]
 	},
 
@@ -260,7 +287,7 @@
 		[true],
 		[false],
 		[false],
-		["GeneralSiteDescription"]
+		["GENERALSIT"]
 	    ],
 
 	"nearest stream/water(name)":
@@ -272,9 +299,9 @@
 		[false],
 		[false],
 		[true],
-		["NearestRiverStream"]
+		["NEARESTRIV"]
 	    ],
-	
+
 	"depth/character of fill":
 	    [
 		["depth/character","of","fill"],
@@ -284,10 +311,10 @@
 		[false],
 		[false],
 		[false],
-		["SoilType"]
+		["SOILTYPE"]
 	    ]
 	},
- 
+
  "DateConversions":
 	{
 	    "January":"1",
@@ -314,5 +341,4 @@
 	    "December":"12",
 	    "Dec":"12"
 	}
-
 }

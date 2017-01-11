@@ -2,6 +2,17 @@ import csv
 import json
 
 """
+function: parse csv into 2D file list
+"""
+def readCSV(filepath):
+    csv_list=[]
+    with open(filepath, 'rb') as csvfile:
+        reader=csv.reader(csvfile,delimiter=',')
+        for row  in reader:
+            csv_list.append(row)
+    return csv_list
+
+"""
 function: process json data from file
 """
 def processJSON(filepath):
@@ -38,11 +49,12 @@ down to [['key', 'w1 ... wn']...]
 def compress_list(data):
     ls=[]
     for i in data:
+        i=[str(j) for j in i]
         if len(i)>2:
             ls.append([i[0]," ".join(i[1:len(i)-1])])
         else:
             ls.append(i)
-    return ls   
+    return ls
 
 """
 function: write a list back to a text file

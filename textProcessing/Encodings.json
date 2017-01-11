@@ -1,5 +1,5 @@
 {
- "MajorRiver":
+ "MAJORRIVER":
     {
 	"pee dee":"0",
 	"santee":"1",
@@ -7,7 +7,7 @@
 	"savannah":"3"
     },
 
- "SoilType":
+ "SOILTYPE":
     {
 	"clay":"0",
 	"clay/loam":"1",
