@@ -73,3 +73,40 @@ def toCSV(path, data):
         writer = csv.writer(csvfile, delimiter=',')
         for i in data:
             writer.writerow(i)
+
+"""
+function: write a processed list to a SCIAA database formatted csvOut
+"""
+def write_to_dbf(filename, output_ls, db_field_coords, csv_out, dbf_out_path):
+    """
+    use filename to find column
+    parse filepath:
+        -split over '/' and take last element
+        -split over '_' and take first element
+    """
+
+    #parse filename
+    f0=filename.split("/")
+    f1=f0[len(f0)-1]
+    fp=f1.split("_")[0]
+
+    #find the row
+    row=None
+    id_col=4 #column with file ID in it
+    for i in range(0,len(csv_out)):
+        if csv_out[i][4]==fp:
+            print("\nPATH MATCH FOUND!")
+            row=i
+            break
+
+    if row==None:
+        return
+    else:
+        for i in output_ls:
+            print("i[0] is: "+str(i[0]))
+            out_key=db_field_coords[i[0]]
+            print("writing to: ["+str(row)+"]["+str(out_key)+"]")
+            csv_out[row][out_key]=i[1]
+
+    #write to file
+    toCSV(dbf_out_path,csv_out)
