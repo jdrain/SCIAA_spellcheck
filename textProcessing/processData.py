@@ -110,3 +110,20 @@ def write_to_dbf(filename, output_ls, db_field_coords, csv_out, dbf_out_path):
 
     #write to file
     toCSV(dbf_out_path,csv_out)
+
+"""
+function: slice the CSV based on certain columns. May be useful just for viewability
+"""
+def get_csv_columns(columns, csv_fp):
+    #pass the columns as integers in a list
+    csv_file_ls = readCSV(csv_fp)
+    sliced_ls = [[i[j] for i in csv_file_ls] for j in columns]
+    return sliced_ls
+
+"""
+function: get pertinent columns from a json
+"""
+def get_pertinent_columns(pertinent_fields_json):
+    data = processJSON(pertinent_fields_json)
+    cols = [data[key] for key in data.keys()]
+    return cols
