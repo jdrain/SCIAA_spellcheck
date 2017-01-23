@@ -13,15 +13,10 @@ dir_path=sys.argv[1]
 dbf_csv_path=sys.argv[2]
 
 #get data from json files
-keys=processData.processJSON("./textProcessing/explicit_keys.json")
-encoding_keys=processData.processJSON("./textProcessing/Encodings.json")
-db_field_coordinates=processData.processJSON("./textProcessing/DatabaseFieldCoordinates.json")
+keys=processData.processJSON("./textProcessing/JSONdata/explicit_keys.json")
+encoding_keys=processData.processJSON("./textProcessing/JSONdata/Encodings.json")
+db_field_coordinates=processData.processJSON("./textProcessing/JSONdata/DatabaseFieldCoordinates.json")
 
-"""
-filePath=sys.argv[1] #path to the file
-csvPath=sys.argv[2] #csv output path
-dbf_csv_path="../JustAllendale.csv" #path for the dbf csv
-"""
 for fpath in os.listdir(dir_path):
 
     fileList=parser.read_file_simple(dir_path+"/"+fpath)
