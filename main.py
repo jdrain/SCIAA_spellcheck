@@ -6,9 +6,6 @@ from textProcessing import processData
 """
 TODO:
     -add function to get the type of form
-    -change code to add to the csv instead of creating a new one
-    -needs functionality to take in a directory and iterate over it instead
-     of having to run this script once for each file. Super inefficient.
 """
 
 #input dir and output path
@@ -16,7 +13,7 @@ dir_path=sys.argv[1]
 dbf_csv_path=sys.argv[2]
 
 #get data from json files
-keys=processData.processJSON("./textProcessing/keys1.json")
+keys=processData.processJSON("./textProcessing/explicit_keys.json")
 encoding_keys=processData.processJSON("./textProcessing/Encodings.json")
 db_field_coordinates=processData.processJSON("./textProcessing/DatabaseFieldCoordinates.json")
 

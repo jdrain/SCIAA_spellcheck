@@ -15,6 +15,7 @@ def read_file_simple(path):
             fileList.append(i)
         fileList.append("\n")
     return fileList
+
 """
 function: extract indices where info associated with certain keys will
 start and end, as well as the fuzz ratio of that key
@@ -22,7 +23,7 @@ start and end, as well as the fuzz ratio of that key
 def filter_potential_data(keys,file_list):
     ls=[]
     for key in keys.keys():
-        for i in find_keys(keys[key][0],file_list,keys[key][1]):
+        for i in find_keys(keys[key]["InitKeys"],file_list,keys[key]["EndKeys"]):
             ls.append(i)
     for i in ls:
         print(i)
@@ -101,17 +102,17 @@ def extract_data(file_list,filtered_data,keys):
             key=filtered_data[i][0]
             #add filtering for checkmarked fields and whatnot here
             #what even are these keys...
-            if (keys[key][2][0]==False and keys[key][3][0]==False and
-                    keys[key][4][0]==False):
+            if (keys[key]["NextLineField"][0]==False and keys[key]["CheckField"][0]==False and
+                    keys[key]["MultiLineField"][0]==False):
                 ls.append([key,
                 " ".join(remove_new_lines(file_list[start:end]))])
             else:
                 #is the field on the next line or multiple lines?
-                if keys[key][2][0]==True or keys[key][4][0]==True:
+                if keys[key]["NextLineField"][0]==True or keys[key]["MultiLineField"][0]==True:
                     #ignore newline chars
                     ls.append([key," ".join(file_list[start:end])])
                 #is the field a checked field?
-                if keys[key][3][0]==True:
+                if keys[key]["CheckField"][0]==True:
                     #deal with checked fields
                     ls.append(process_checked_field(file_list,key,start,end))
         i+=1
@@ -126,7 +127,7 @@ def database_format(data,keys,encoding_keys):
     print("\nNow formatting for DB\n")
     for i in range(0,len(data)):
         top_key=data[i][0]
-        db_key=keys[top_key][7][0]
+        db_key=keys[top_key]["FieldName"][0]
         info=data[i][1:len(data[i])]
         added=False
 
@@ -143,13 +144,13 @@ def database_format(data,keys,encoding_keys):
             #but for now it will do
 
             if top_key=="estimated site dimensions":
-                esd_keys=keys[top_key][7]
+                esd_keys=keys[top_key]["FieldName"]
                 for i in process_site_dimensions(info,esd_keys):
                     ls.append(i)
                 added=True
             #eventually add a db_column var
             #do stuff to deal with multi-option fields
-            elif len(keys[top_key][7]) > 1:
+            elif len(keys[top_key]["FieldName"]) > 1:
                 key=keys[top_key]
                 #we have a multi-option field
                 for i in choose_multi_option_field(info,key):
@@ -220,11 +221,11 @@ def choose_multi_option_field(field_info,key):
     for i in field_info:
         best_ratio=0
         best_match=""
-        for j in range(0,len(key[8])):
-            rat=fuzz.ratio(str(key[8][j]),str(i))
+        for j in range(0,len(key["Encoded"])):
+            rat=fuzz.ratio(str(key["Encoded"][j]),str(i))
             if rat>best_ratio:
                 best_ratio=rat
-                best_match=key[7][j]
+                best_match=key["FieldName"][j]
         if best_ratio>=80:
             ls.append([best_match,1])
         else:
@@ -264,12 +265,12 @@ def remove_extra_chars(file_list,keys,nums):
     for i in range(0, len(ls)):
         #index 0 is the key
         key=ls[i][0]
-        if keys[key][6][0]==True:
+        if keys[key]["IsNonNumeric"][0]==True:
             #process out numeric data
             for j in range(1,len(ls[i])):
                 for num in nums:
                     ls[i][j]=str(ls[i][j]).replace(num,"")
-        elif keys[key][5][0]==True:
+        elif keys[key]["IsNumeric"][0]==True:
             #process out non-numeric data
             for j in range(1,len(ls[i])):
                 for char in ls[i][j]:
