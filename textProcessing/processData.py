@@ -73,11 +73,19 @@ def toCSV(path, data):
         writer = csv.writer(csvfile, delimiter=',')
         for i in data:
             writer.writerow(i)
-
+"""
+function: log the data going into the db
+"""
+def get_db_log(file_ls,logfile):
+    #file_ls is like [["x:","y z"],[...],...]
+    with open(logfile,"w") as outfile:
+        for i in file_ls:
+            j=" ".join(i)+"\n"
+            outfile.write(j)
 """
 function: write a processed list to a SCIAA database formatted csvOut
 """
-def write_to_dbf(filename, output_ls, db_field_coords, csv_out, dbf_out_path):
+def write_to_dbf(filename, output_ls, db_field_coords, csv_out, dbf_out_path, match_using_filename=True):
     """
     use filename to find column
     parse filepath:
@@ -93,11 +101,39 @@ def write_to_dbf(filename, output_ls, db_field_coords, csv_out, dbf_out_path):
     #find the row
     row=None
     id_col=4 #column with file ID in it
-    for i in range(0,len(csv_out)):
-        if csv_out[i][4]==fp:
-            print("\nPATH MATCH FOUND!")
-            row=i
-            break
+    date_col=7 #column with the date in it
+
+    #set date_exists, date fields
+    date_exists=False
+    date=None
+    for i in output_ls:
+        if i[0]=="RECORDEDDA":
+            date_exists=True
+            date=i[1]
+
+    if (match_using_filename and date_exists):
+        for i in range(0,len(csv_out)):
+            if csv_out[i][4]==fp and csv_out[i][7]==date:
+                print("\nPATH MATCH FOUND!")
+                print("\nBased on: Date and fp")
+                row=i
+                break
+    elif (date_exists):
+        for i in range(0,len(csv_out)):
+            if csv_out[i][date_col]==date:
+                print("\nPATH MATCH FOUND!")
+                print("\nBased on: Date")
+                row=i
+                break
+    elif (match_using_filename):
+        for i in range(0,len(csv_out)):
+            if csv_out[i][4]==fp:
+                print("\nPATH MATCH FOUND!")
+                print("\nBased on: fp")
+                row=i
+                break
+    else:
+        return
 
     if row==None:
         return
