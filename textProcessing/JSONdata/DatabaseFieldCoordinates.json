@@ -4,6 +4,7 @@
     "STATE":2,
     "COUNTY":3,
     "SITENUMBER":4,
+    "RECORDEDDA": 7,
     "AI_SURVEY":17,
     "AI_TESTING":18,
     "AI_EXCAVAT":19,

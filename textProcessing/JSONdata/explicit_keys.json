@@ -3,731 +3,828 @@
         "archaeological investigation": {
             "CheckField": [
                 true
-            ], 
+            ],
             "Encoded": [
-                "survey", 
-                "testing", 
+                "survey",
+                "testing",
                 "excavation"
-            ], 
+            ],
             "EndKeys": [
-                "property", 
+                "property",
                 "owner"
-            ], 
+            ],
             "FieldName": [
-                "AI_SURVEY", 
-                "AI_TESTING", 
+                "AI_SURVEY",
+                "AI_TESTING",
                 "AI_EXCAVAT"
-            ], 
+            ],
             "InitKeys": [
-                "archaeological", 
+                "archaeological",
                 "investigation"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "cultural features": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "presence", 
+                "presence",
                 "of"
-            ], 
+            ],
             "FieldName": [
                 "CULTURALFE"
-            ], 
+            ],
             "InitKeys": [
-                "cultural", 
+                "cultural",
                 "features"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 true
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
+        "date": {
+            "CheckField":  [
+                false
+            ],
+            "EndKeys": [
+                "general",
+                "information"
+            ],
+            "FieldName": [
+                "RECORDEDDA"
+            ],
+            "InitKeys": [
+                "date"
+            ],
+            "IsNonNumeric": [
+                false
+            ],
+            "IsNumeric": [
+                false
+            ],
+            "MultiLineField": [
+                false
+            ],
+            "NextLineField": [
+                false
+            ]
+        },
         "estimated site dimensions": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "site", 
+                "site",
                 "depth"
-            ], 
+            ],
             "FieldName": [
-                "SITELENGTH", 
+                "SITELENGTH",
                 "SITEWIDTH"
-            ], 
+            ],
             "InitKeys": [
-                "estimated", 
-                "site", 
+                "estimated",
+                "site",
                 "dimensions"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "general site description": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "use", 
-                "in", 
-                "conjunction", 
-                "with", 
+                "use",
+                "in",
+                "conjunction",
+                "with",
                 "handbook"
-            ], 
+            ],
             "FieldName": [
                 "GENERALSIT"
-            ], 
+            ],
             "InitKeys": [
-                "general", 
-                "site", 
+                "general",
+                "site",
                 "description"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 true
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "historic": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "archaeological", 
+                "archaeological",
                 "investigation"
-            ], 
+            ],
             "FieldName": [
                 "DST_HISTOR"
-            ], 
+            ],
             "InitKeys": [
                 "historic"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "justification": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "environment", 
-                "and", 
+                "environment",
+                "and",
                 "location"
-            ], 
+            ],
             "FieldName": [
                 "JUSTIFICAT"
-            ], 
+            ],
             "InitKeys": [
                 "justification"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 true
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "landform location": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "site", 
+                "site",
                 "elevation"
-            ], 
+            ],
             "FieldName": [
                 "LANDFORMLO"
-            ], 
+            ],
             "InitKeys": [
-                "landform", 
+                "landform",
                 "location"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "level of significance": {
             "CheckField": [
                 true
-            ], 
+            ],
             "Encoded": [
-                "national", 
-                "state", 
+                "national",
+                "state",
                 "local"
-            ], 
+            ],
             "EndKeys": [
                 "justification"
-            ], 
+            ],
             "FieldName": [
-                "LOS_NATION", 
-                "LOS_STATE", 
+                "LOS_NATION",
+                "LOS_STATE",
                 "LOS_LOCAL"
-            ], 
+            ],
             "InitKeys": [
-                "level", 
-                "of", 
+                "level",
+                "of",
                 "significance"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "major river system": {
             "CheckField": [
                 true
-            ], 
+            ],
             "EndKeys": [
-                "nearest", 
+                "nearest",
                 "river/stream"
-            ], 
+            ],
             "FieldName": [
                 "MAJORRIVER"
-            ], 
+            ],
             "InitKeys": [
-                "major", 
-                "river", 
+                "major",
+                "river",
                 "system"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "nearest river/stream": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "current", 
+                "current",
                 "vegetation"
-            ], 
+            ],
             "FieldName": [
                 "NEARESTRIV"
-            ], 
+            ],
             "InitKeys": [
-                "nearest", 
+                "nearest",
                 "river/stream"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "on site soil type": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "soil", 
+                "soil",
                 "classification"
-            ], 
+            ],
             "FieldName": [
                 "SOILTYPE"
-            ], 
+            ],
             "InitKeys": [
-                "on", 
-                "site", 
-                "soil", 
+                "on",
+                "site",
+                "soil",
                 "type"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "prehistoric": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
                 "historic"
-            ], 
+            ],
             "FieldName": [
                 "DST_PREHIS"
-            ], 
+            ],
             "InitKeys": [
                 "prehistoric"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "site depth": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
                 "cm"
-            ], 
+            ],
             "FieldName": [
                 "SITEDEPTH"
-            ], 
+            ],
             "InitKeys": [
-                "site", 
+                "site",
                 "depth"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 true
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "site elevation (above msl)": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "(in", 
+                "(in",
                 "feet)"
-            ], 
+            ],
             "FieldName": [
                 "SITEELEVAT"
-            ], 
+            ],
             "InitKeys": [
-                "site", 
-                "elevation", 
-                "(above", 
+                "site",
+                "elevation",
+                "(above",
                 "msl)"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 true
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "soil classification": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "major", 
-                "river", 
+                "major",
+                "river",
                 "system"
-            ], 
+            ],
             "FieldName": [
                 "SOILCLASSI"
-            ], 
+            ],
             "InitKeys": [
-                "soil", 
+                "soil",
                 "classification"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
+        },
+        "archaeological components": {
+          "CheckField": [
+              true
+          ],
+          "Encoded": [
+              "paleo indian",
+              "early archaic",
+              "middle archaic",
+              "late archaic",
+              "early woodland",
+              "middle woodland",
+              "late woodland",
+              "mississipian",
+              "late woodland",
+              "unknown prehistoric",
+              "16th century",
+              "17th century",
+              "18th century",
+              "19th century",
+              "20th century",
+              "unkown historic"
+          ],
+          "EndKeys": [
+              "\ne",
+              "data",
+              "recovered"
+          ],
+          "FieldName":
+          [
+              "ARC_PALEO",
+              "ARC_EARLYA",
+              "ARC_MIDDLE",
+              "ARC_LATEAR",
+              "ARC_EARLYW",
+              "ARC_MIDD_1",
+              "ARC_LATEWO",
+              "ARC_ANYWOO",
+              "ARC_MISSIS",
+              "ARC_LATEPR",
+              "ARC_UNKNOW",
+              "ARC_ERAPRE",
+              "ARC_16CENT",
+              "ARC_17CENT",
+              "ARC_18CENT",
+              "ARC_19CENT",
+              "ARC_20CENT",
+              "ARC_UNKN_1"
+          ],
+          "InitKeys":
+          [
+              "archaeological",
+              "components"
+          ],
+          "IsNonNumeric":
+          [
+              true
+          ],
+          "IsNumeric":
+          [
+              false
+          ],
+          "MultiLineField":
+          [
+              true
+          ],
+          "NextLineField":
+          [
+              true
+          ]
         }
-    }, 
+    },
     "68-1-2": {
         "cultural affiliation": {
             "CheckField": [
                 true
-            ], 
+            ],
             "EndKeys": [
-                "property", 
+                "property",
                 "owner"
-            ], 
+            ],
             "InitKeys": [
-                "archaeological", 
+                "archaeological",
                 "investigation"
-            ], 
-            "IsNumeric": [], 
+            ],
+            "IsNumeric": [],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "site type": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "cultural", 
+                "cultural",
                 "affiliation"
-            ], 
+            ],
             "FieldName": [
-                "DST_HISTOR", 
+                "DST_HISTOR",
                 "DST_PREHIS"
-            ], 
+            ],
             "InitKeys": [
-                "site", 
+                "site",
                 "type"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 true
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
         }
-    }, 
+    },
     "68-1-3": {
         "additional description": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "surface", 
+                "surface",
                 "collection"
-            ], 
+            ],
             "FieldName": [
                 "GENERALSIT"
-            ], 
+            ],
             "InitKeys": [
-                "additional", 
+                "additional",
                 "description"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 true
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "depth/character of fill": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "material", 
+                "material",
                 "observed"
-            ], 
+            ],
             "FieldName": [
                 "SOILTYPE"
-            ], 
+            ],
             "InitKeys": [
-                "depth/character", 
-                "of", 
+                "depth/character",
+                "of",
                 "fill"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "location: nearest stream/water (name)": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "distance", 
-                "to", 
-                "nearest", 
+                "distance",
+                "to",
+                "nearest",
                 "stream/water"
-            ], 
+            ],
             "FieldName": [
                 "NEARESTRIV"
-            ], 
+            ],
             "InitKeys": [
-                "location:", 
-                "nearest", 
-                "stream/water", 
+                "location:",
+                "nearest",
+                "stream/water",
                 "(name)"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
         }
-    }, 
+    },
     "AH": {
         "depth/character of fill": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "material", 
+                "material",
                 "observed/reported"
-            ], 
+            ],
             "FieldName": [
                 "SOILTYPE"
-            ], 
+            ],
             "InitKeys": [
-                "depth/character", 
-                "of", 
+                "depth/character",
+                "of",
                 "fill"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 true
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "description": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "owner", 
-                "and", 
+                "owner",
+                "and",
                 "address"
-            ], 
+            ],
             "FieldName": [
                 "GENERALSIT"
-            ], 
+            ],
             "InitKeys": [
                 "description"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
         }
-    }, 
+    },
     "AH-2": {
         "additional description": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "surface", 
+                "surface",
                 "collection"
-            ], 
+            ],
             "FieldName": [
                 "GENERALSIT"
-            ], 
+            ],
             "InitKeys": [
-                "additional", 
+                "additional",
                 "description"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 true
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "depth/character of fill": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "material", 
+                "material",
                 "observed"
-            ], 
+            ],
             "FieldName": [
                 "SOILTYPE"
-            ], 
+            ],
             "InitKeys": [
-                "depth/character", 
-                "of", 
+                "depth/character",
+                "of",
                 "fill"
-            ], 
+            ],
             "IsNonNumeric": [
                 false
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]
-        }, 
+        },
         "nearest stream/water(name)": {
             "CheckField": [
                 false
-            ], 
+            ],
             "EndKeys": [
-                "distance", 
-                "to", 
-                "nearest", 
+                "distance",
+                "to",
+                "nearest",
                 "water(miles)"
-            ], 
+            ],
             "FieldName": [
                 "NEARESTRIV"
-            ], 
+            ],
             "InitKeys": [
-                "nearest", 
+                "nearest",
                 "stream/water(name)"
-            ], 
+            ],
             "IsNonNumeric": [
                 true
-            ], 
+            ],
             "IsNumeric": [
                 false
-            ], 
+            ],
             "MultiLineField": [
                 false
-            ], 
+            ],
             "NextLineField": [
                 false
             ]

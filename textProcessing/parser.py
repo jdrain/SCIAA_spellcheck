@@ -1,6 +1,7 @@
 #parser to extract pertinent information from raw text files
 
 from fuzzywuzzy import fuzz
+from recognize_dates import get_date
 
 """
 function: read a file into a one dimension list of words
@@ -120,7 +121,7 @@ def extract_data(file_list,filtered_data,keys):
 """
 function: translate the output of extract_data into DB enterable format
 """
-def database_format(data,keys,encoding_keys):
+def database_format(data,keys,encoding_keys,date_conversions):
     #do stuff for key translation
     ls=[]
     encod_keys=encoding_keys.keys()
@@ -148,6 +149,18 @@ def database_format(data,keys,encoding_keys):
                 for i in process_site_dimensions(info,esd_keys):
                     ls.append(i)
                 added=True
+            elif top_key=="date":
+                date=get_date(info,date_conversions)
+                if date[1]!=None:
+                    date[1]=date[1]+" ADDED BY GET DATE METHOD"
+                    ls.append(date)
+                    added=True
+            elif top_key=="archaeological investigation":
+                ai_keys=keys[top_key]["FieldName"]
+                ai_encoded=keys[top_key]["Encoded"]
+                for i in process_archaeological_components(info,ai_keys,ai_encoded):
+                    ls.append(i)
+                added=True
             #eventually add a db_column var
             #do stuff to deal with multi-option fields
             elif len(keys[top_key]["FieldName"]) > 1:
@@ -163,7 +176,7 @@ def database_format(data,keys,encoding_keys):
                 ls.append(process_encoded_fields(info,db_key,encoding_keys))
                 added=True
             if added==False:
-                ls.append([db_key," ".join(info)])
+                ls.append([db_key," ".join(info)+"ADDED WITH TOP KEY "+str(top_key)])
     return ls
 """
 function: process site dimensions
@@ -212,7 +225,29 @@ def process_encoded_fields(info,db_key,encoding_keys):
         info=[""]
     return [db_key," ".join(info)]
 """
-function: divide a multi-option field into it's corresponding field in the DB,
+function: deal with archaeological components
+"""
+def process_archaeological_components(info,keys,encoded):
+    ls = []
+    for i in range(0,len(info)):
+        #is info[i] an x? if so, check if the next two words match a known key
+        if (i <= len(info)-2) and (info[i]=='x'):
+            potential_key = info[i+1]+" "+info[i+2]
+            #calculate the fuzz ratio of this and all the keys
+            ls=[]
+            best_rat = 0
+            best_rat_ind = 0
+            for j in range(0, len(encoded)):
+                rat=fuzz.ratio(potential_key,encoded[j])
+                if rat > best_rat:
+                    best_rat = rat
+                    best_rat_ind = j
+            if best_rat > 75:
+                #take that ish
+                ls.append([encoded[best_rat_ind],"Y"])
+    return ls
+"""
+function: divide a multi-option field into its corresponding field in the DB,
 based upon which value it has
 """
 def choose_multi_option_field(field_info,key):
@@ -227,7 +262,7 @@ def choose_multi_option_field(field_info,key):
                 best_ratio=rat
                 best_match=key["FieldName"][j]
         if best_ratio>=80:
-            ls.append([best_match,1])
+            ls.append([best_match,"Y"])
         else:
             pass
     return ls

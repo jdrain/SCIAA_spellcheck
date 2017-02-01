@@ -16,7 +16,9 @@ dbf_csv_path=sys.argv[2]
 keys=processData.processJSON("./textProcessing/JSONdata/explicit_keys.json")
 encoding_keys=processData.processJSON("./textProcessing/JSONdata/Encodings.json")
 db_field_coordinates=processData.processJSON("./textProcessing/JSONdata/DatabaseFieldCoordinates.json")
+date_conversions=processData.processJSON("./textProcessing/JSONdata/DateConversion.json")
 
+overall=[]
 for fpath in os.listdir(dir_path):
 
     fileList=parser.read_file_simple(dir_path+"/"+fpath)
@@ -45,7 +47,7 @@ for fpath in os.listdir(dir_path):
     for i in extracted:
         print(i)
 
-    formatted=parser.database_format(extracted,keys["1985"],encoding_keys)
+    formatted=parser.database_format(extracted,keys["1985"],encoding_keys,date_conversions)
 
     print("\nformatted: \n")
     for i in formatted:
@@ -54,7 +56,12 @@ for fpath in os.listdir(dir_path):
     #compress and write to file
     print("\ncompressing:\n")
     compressed=processData.compress_list(formatted)
+    for i in compressed:
+        overall.append(i)
 
     #writing to the dbf csv
     print("\nwriting to dbf file:")
     processData.write_to_dbf(fpath,compressed,db_field_coordinates,csvOut,dbf_csv_path)
+
+print("\nlogging:\n")
+processData.get_db_log(overall,"lastRun.txt")
