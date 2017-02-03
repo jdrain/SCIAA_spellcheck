@@ -1,6 +1,7 @@
 from fuzzywuzzy import fuzz
+import re
 
-date_chars=['0','1','2','3','4','5','6','7','8','9','/']
+date_chars=['0','1','2','3','4','5','6','7','8','9','/','.','-']
 
 """
 Function: take in a file (slit over white space) and then extract a date
@@ -8,44 +9,29 @@ from it
 """
 def get_date(info, date_conversions):
     conversions=date_conversions
-    for i in range(0,len(info)):
-        #two cases, (i) if it is all together "MM/DD/YYYY", we can just take
-        #but if it is separated (ii) "Month DD/YYYY" need to be attentive
-        correct_format=True
-        for i in info:
-            for j in i:
-                if j not in date_chars:
-                    correct_format=False
-                    break
-        if correct_format==True:
-            date="".join(info)
+    correct_format=True
+    for i in info:
+        if i not in date_chars:
+            correct_format=False
             break
-        else:
-            for i in range(0,len(info)):
-                for j in conversions.keys():
-                    if fuzz.ratio(str(j),str(i))>=80:
-                        #found a month
-                        month=conversion[j]
-                        date=month+"".join(info[i+1:len(info)])
-                        date.replace(".","/")
-                        date.replace("-","/")
-                        date.replace(" ","/")
-                        break
-            date="".join(info)
-            date=date.replace("-","/")
-            date=date.replace(".","/")
-            date=date.replace(" ","/")
-            break
-
-    date=clean_date(date)
-    return ["RECORDEDDA",date]
-
-    """
-    if check_date_format(date)
-        return ["RECORDEDDA",date]
+    if correct_format:
+        date = clean_date(info)
+        date_ls = re.split(" . |, - , /",date)
+        date = "/".join(date_ls[0:3])
     else:
-        return ["RECORDEDDA",None]
-    """
+        date = date.split(" ")
+        for i in range(0,len(date)):
+            for key in conversions.keys():
+                if fuzz.ratio(str(date[i]),str(key))>=80:
+                    #month was found
+                    month=conversion[key]
+                    date = clean_date(month+"/".join(info[i+1:i+3]))
+                    break
+        if type(date) is list:
+            #clean
+            date = clean_date("/".join(date))
+             
+    return ["RECORDEDDA",date]
 
 """
 function: take in a string (date) and clean it up
