@@ -80,7 +80,7 @@ def get_db_log(file_ls,logfile):
     #file_ls is like [["x:","y z"],[...],...]
     with open(logfile,"w") as outfile:
         for i in file_ls:
-            j=" ".join(i)+"\n"
+            j=" ".join(str(i))+"\n"
             outfile.write(j)
 """
 function: write a processed list to a SCIAA database formatted csvOut
@@ -92,7 +92,7 @@ def write_to_dbf(filename, output_ls, db_field_coords, csv_out, dbf_out_path, ma
         -split over '/' and take last element
         -split over '_' and take first element
     """
-
+    print("test1")
     #parse filename
     f0=filename.split("/")
     f1=f0[len(f0)-1]
@@ -108,6 +108,7 @@ def write_to_dbf(filename, output_ls, db_field_coords, csv_out, dbf_out_path, ma
     date=None
     for i in output_ls:
         if i[0]=="RECORDEDDA":
+            print("date exists")
             date_exists=True
             date=i[1]
 
@@ -118,25 +119,27 @@ def write_to_dbf(filename, output_ls, db_field_coords, csv_out, dbf_out_path, ma
                 print("\nBased on: Date and fp")
                 row=i
                 break
-    elif (date_exists):
+    if (date_exists and row==None):
         for i in range(0,len(csv_out)):
             if csv_out[i][date_col]==date:
                 print("\nPATH MATCH FOUND!")
                 print("\nBased on: Date")
                 row=i
                 break
-    elif (match_using_filename):
+    if (match_using_filename and row==None):
         for i in range(0,len(csv_out)):
             if csv_out[i][4]==fp:
                 print("\nPATH MATCH FOUND!")
                 print("\nBased on: fp")
                 row=i
                 break
-    else:
+
+    if row==None:    
+        print("Match using fname was: ")
+        print(match_using_filename)
+        print("No match found")
         return
 
-    if row==None:
-        return
     else:
         for i in output_ls:
             print("i[0] is: "+str(i[0]))
