@@ -177,6 +177,11 @@ def database_format(data,keys,encoding_keys,date_conversions):
                 added=True
             if added==False:
                 ls.append([db_key," ".join(info)+"ADDED WITH TOP KEY "+str(top_key)])
+
+    #remove new lines from the output
+    for i in range(0,len(ls)):
+        ls[i][1]=remove_new_lines_str(ls[i][1])
+
     return ls
 """
 function: process site dimensions
@@ -313,12 +318,20 @@ def remove_extra_chars(file_list,keys,nums):
                         ls[i][j]=ls[i][j].replace(char,"")
     return ls
 """
-function: remove new line chars
+function: remove new line chars from a list
 """
 def remove_new_lines(file_list):
     for i in range(0, len(file_list)):
         file_list[i]=file_list[i].replace("\n","")
+        file_list[i]=file_list[i].replace("\r","")
     return file_list
+"""
+function: remove new line chars from a string
+"""
+def remove_new_lines_str(s):
+    s=s.replace("\n","")
+    s=s.replace("\r","")
+    return s
 """
 function: remove underlines from the files
 """
