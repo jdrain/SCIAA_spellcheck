@@ -54,14 +54,16 @@ for fpath in os.listdir(dir_path):
         print(i)
 
     #compress and write to file
+    """
     print("\ncompressing:\n")
     compressed=processData.compress_list(formatted)
-    for i in compressed:
+    """
+    for i in formatted:
         overall.append(i)
 
     #writing to the dbf csv
     print("\nwriting to dbf file:")
-    processData.write_to_dbf(fpath,compressed,db_field_coordinates,csvOut,dbf_csv_path)
+    processData.write_to_dbf(fpath,formatted,db_field_coordinates,csvOut,dbf_csv_path)
 
 print("\nlogging:\n")
 processData.get_db_log(overall,"lastRun.txt")
